@@ -1,0 +1,22 @@
+import tarfile # podajemy nazwe importowanego pliku
+
+from six.moves import urllib # importujemy plik ze strony 
+
+D_R = "https://raw.githubusercontent.com/ageron/handson-ml/master/"
+H_P = os.path.join("zestawy danych", "mieszkania")
+H_U = D_R + "datasets/housing/housing.tgz"
+
+def fetch_housing_data(housing_url= H_U, housing_path= H_P):
+    
+    if not os.path.isdir(housing_path):
+        
+       os.makedirs(housing_path)
+    
+       tgz_path = os.path.join(housing_path, "housing.tgz") 
+       print(tgz_path)
+       urllib.request.urlretrieve(housing_url, tgz_path)
+        
+       housing_tgz = tarfile.open(tgz_path)
+       housing_tgz.extractall(path= housing_path)
+        
+       housing_tgz.close()
